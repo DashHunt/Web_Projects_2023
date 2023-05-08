@@ -1,0 +1,24 @@
+### GET IMAGE PET
+POST http://localhost:5000/getPet/pets/images/getByID
+X-Header-Token: secret_key
+Content-Type: application/json 
+
+{
+    "petId": 3
+}
+
+### GET IMAGE PET
+POST http://localhost:5000/getPet/pets/images/insert
+X-Header-Token: secret_key
+Content-Type: application/json 
+
+{
+    "petId": 4,
+    "imagePath": "C:\\Users\\arthu\\OneDrive\\Área de Trabalho\\Portfolio\\Web_Projects_2023\\GetPet\\back\\getPet\\uploads\\ID_5_Lulu\\Lulu.jpg"
+}
+
+
+### GET all Images
+GET http://localhost:5000/getPet/pets/getAllImages
+X-Header-Token: secret_key
+Content-Type: application/json 

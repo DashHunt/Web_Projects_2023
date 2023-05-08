@@ -1,0 +1,10 @@
+@media only screen and (max-width: 1026px) {  
+    .showlarge {
+      display: none;
+    }
+
+    .topMargin{
+        margin-top: 20px;
+    }
+  }
+  

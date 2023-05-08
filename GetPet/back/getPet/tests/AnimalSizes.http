@@ -1,0 +1,14 @@
+###  GET sizes
+GET http://localhost:5000/getPet/sizes/get
+X-Header-Token: secret_key
+Content-Type: application/json 
+
+
+### POST sizes
+POST http://localhost:5000/getPet/sizes/insert
+X-Header-Token: secret_key
+Content-Type: application/json 
+
+{
+    "sizeName": "Medium"
+}

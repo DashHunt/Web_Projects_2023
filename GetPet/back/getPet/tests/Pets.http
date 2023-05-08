@@ -1,0 +1,42 @@
+
+### GET pets
+GET http://localhost:5000/getPet/pets/get
+X-Header-Token: secret_key
+Content-Type: application/json 
+
+
+### POST PET
+POST http://localhost:5000/getPet/pets/insertPet
+X-Header-Token: secret_key
+Content-Type: application/json 
+
+{
+    "age": 10,
+    "name": "Horsy Horsy",
+    "breed": "Horse",
+    "surname": "Cavalão ta doidão",
+    "size_id": 4
+}
+
+### UPDATE PET
+POST http://localhost:5000/getPet/pets/updatePet
+X-Header-Token: secret_key
+Content-Type: application/json 
+
+{
+    "age": 1,
+    "id": 3,
+    "name": "Quica",
+    "surname": "Branquelona",
+    "breed": "Dog"
+}
+
+### UPDATE PET
+POST http://localhost:5000/getPet/pets/deactivatePet
+X-Header-Token: secret_key
+Content-Type: application/json 
+
+{
+    "id": 6
+}
+
