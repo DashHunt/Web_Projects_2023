@@ -4,6 +4,11 @@ GET http://localhost:5000/getPet/pets/get
 X-Header-Token: secret_key
 Content-Type: application/json 
 
+### GET pets
+GET http://localhost:5000/getPet/pets/getBreeds
+X-Header-Token: secret_key
+Content-Type: application/json 
+
 
 ### POST PET
 POST http://localhost:5000/getPet/pets/insertPet

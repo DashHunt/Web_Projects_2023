@@ -1,24 +1,32 @@
+import "./Friends.css";
 import React, { useState, useEffect } from "react";
-import NavbarComponent from "../../components/Navbar/Navbar";
-
-import lottieJson from "../../assets/lotties/122589-dog-and-man-cute-animation";
 import Lottie from "react-lottie-player";
 
 import Button from "react-bootstrap/Button";
-
 import Form from "react-bootstrap/Form";
 
+import lottieJson from "../../assets/lotties/122589-dog-and-man-cute-animation";
 import { VscSearch } from "react-icons/vsc";
 import { FaForward } from "react-icons/fa";
 
-import "./Friends.css";
-import PetCard from "./Card/Card";
 import PetsAPI from "../../data/api/Pets";
+
+import PetCard from "./Card/Card";
 import SpinnerComponent from "../../components/Spinner";
+import NavbarComponent from "../../components/Navbar/Navbar";
 
 const Friends = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [serverPets, setServerPets] = useState(null);
+  const [displayablePets, setDisplayablePets] = useState(null);
+  const [petBreeds, setPetBreeds] = useState(null);
+  const [petSizes, setPetSizes] = useState(null);
+
+  const [filters, setFilters] = useState({
+    breed: "Select a option",
+    size: "Select a option",
+    age: null,
+  });
 
   //choose the screen size
   const handleResize = () => {
@@ -29,7 +37,23 @@ const Friends = () => {
     }
   };
 
-  useEffect(() => window.addEventListener("resize", handleResize))
+  function FilterComponent() {
+    let dataFiltered;
+
+    if (
+      filters.breed != "Select a option" &&
+      filters.size != "Select a option"
+    ) {
+      dataFiltered = serverPets.filter((pet) => {
+        return (pet.breed == filters.breed) & (pet.size_id == filters.size);
+      });
+    } else {
+      dataFiltered = serverPets;
+    }
+    setDisplayablePets(dataFiltered);
+  }
+
+  useEffect(() => window.addEventListener("resize", handleResize));
 
   useEffect(() => {
     const pets = new PetsAPI();
@@ -37,6 +61,8 @@ const Friends = () => {
     pets
       .get()
       .then((result) => {
+        console.log(result.data);
+        setDisplayablePets(result.data);
         setServerPets(result.data);
         if (window.innerWidth < 720) {
           setIsMobile(true);
@@ -47,9 +73,17 @@ const Friends = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
 
-  
+    pets
+      .getBreeds()
+      .then((result) => setPetBreeds(result.data))
+      .catch((error) => console.log(error));
+
+    pets
+      .getSizes()
+      .then((result) => setPetSizes(result.data))
+      .catch((error) => console.log(error));
+  }, []);
 
   const arrayChunk = (arr, n) => {
     const array = arr.slice();
@@ -119,28 +153,80 @@ const Friends = () => {
                   <hr className="mb-4" />
                   <div className="row">
                     <div className="col-sm-4 topMargin">
-                      <label htmlFor="breed">Breed: </label>
-                      <select className="form-select mt-2" name="breed">
-                        <option value="Select a option">Select a option</option>
-                        <option value="Particular">Particular</option>
-                        <option value="Comercial">Comercial</option>
-                      </select>
+                      {petBreeds === null ? (
+                        <SpinnerComponent></SpinnerComponent>
+                      ) : (
+                        <>
+                          <label htmlFor="breed">Breed: </label>
+                          <select
+                            className="form-select mt-2"
+                            name="breed"
+                            value={filters.breed}
+                            onChange={(e) =>
+                              setFilters((prev) => ({
+                                ...prev,
+                                breed: e.target.value,
+                              }))
+                            }
+                          >
+                            <option value="Select a option">Select a option</option>
+                            {petBreeds.map((breed) => {
+                              return <option value={breed}>{breed}</option>;
+                            })}
+                          </select>
+                        </>
+                      )}
                     </div>
                     <div className="col-sm-4 topMargin">
-                      <label htmlFor="size">Size: </label>
-                      <select className="form-select mt-2" name="size">
-                        <option value="Select a option">Select a option</option>
-                        <option value="Particular">Particular</option>
-                        <option value="Comercial">Comercial</option>
-                      </select>
+                      {petSizes === null ? (
+                        <SpinnerComponent></SpinnerComponent>
+                      ) : (
+                        <>
+                          <label htmlFor="size">Size: </label>
+                          <select
+                            className="form-select mt-2"
+                            name="size"
+                            value={filters.size}
+                            onChange={(e) =>
+                              setFilters((prev) => ({
+                                ...prev,
+                                size: e.target.value,
+                              }))
+                            }
+                          >
+                            <option value="Select a option">Select a option</option>
+                            {petSizes.map((sizes) => {
+                              return (
+                                <option value={sizes.size_id}>
+                                  {sizes.size_name}
+                                </option>
+                              );
+                            })}
+                          </select>
+                        </>
+                      )}
                     </div>
                     <div className="col topMargin">
-                      <Form.Label>Age</Form.Label>
-                      <Form.Range />
+                      <Form.Label>
+                        Age : {filters.age != 0 ? filters.age : null}
+                      </Form.Label>
+                      <Form.Range
+                        value={filters.age}
+                        onChange={(e) =>
+                          setFilters((prev) => ({
+                            ...prev,
+                            age: e.target.value,
+                          }))
+                        }
+                      />
                     </div>
                     <div className="row mt-3">
                       <div className="col-lg-12">
-                        <Button variant="dark" className="shadow-sm rounded">
+                        <Button
+                          variant="dark"
+                          className="shadow-sm rounded"
+                          onClick={() => FilterComponent()}
+                        >
                           Find Friend{" "}
                           <VscSearch style={{ fontWeight: "bold" }}></VscSearch>
                         </Button>
@@ -152,28 +238,30 @@ const Friends = () => {
               </div>
 
               <div className="mt-5">
-                {serverPets == null ? (
+                {displayablePets == null ? (
                   <SpinnerComponent></SpinnerComponent>
                 ) : (
-                  arrayChunk(serverPets, isMobile ? 1 : 3).map((chunk, i) => {
-                    {
-                      return (
-                        <div className="row" key={i}>
-                          {chunk.map((pet, index) => {
-                            return (
-                              <PetCard
-                                id={pet.id}
-                                title={pet.name}
-                                text={pet.surname}
-                                age={pet.age}
-                                i={index}
-                              ></PetCard>
-                            );
-                          })}
-                        </div>
-                      );
+                  arrayChunk(displayablePets, isMobile ? 1 : 3).map(
+                    (chunk, i) => {
+                      {
+                        return (
+                          <div className="row" key={i}>
+                            {chunk.map((pet, index) => {
+                              return (
+                                <PetCard
+                                  id={pet.id}
+                                  title={pet.name}
+                                  text={pet.surname}
+                                  age={pet.age}
+                                  i={index}
+                                ></PetCard>
+                              );
+                            })}
+                          </div>
+                        );
+                      }
                     }
-                  })
+                  )
                 )}
               </div>
             </div>

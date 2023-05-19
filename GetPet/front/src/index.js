@@ -7,6 +7,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Home from "./pages/Home/Home";
 import Friends from "./pages/Friends/Friends";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -14,6 +16,8 @@ ReactDOM.render(
       <Routes>
         <Route path={"/home"} exact={true} element={<Home></Home>}></Route>
         <Route path={"/friends"} exact={true} element={<Friends></Friends>}></Route>
+        <Route path={"/login"} exact={true} element={<Login></Login>}></Route>
+        <Route path={"/register"} exact={true} element={<Register></Register>}></Route>
         {/* <Route
           path={routes.app.path}
           exact={true}

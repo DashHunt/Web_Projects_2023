@@ -1,9 +1,9 @@
 import axios from 'axios'
 import {ApiServer} from '../server.service'
 
-export default class PetsAPI{
+export default class ClientAPI{
     constructor(){
-        this.Flag = 'Pets'
+        this.Flag = 'Client'
         this.axiosInstance = new axios.create({
             timeout: 100000000,
             baseURL: ApiServer(),
@@ -15,36 +15,23 @@ export default class PetsAPI{
         })
     }   
 
-    get(){
-        const config = {
-            method: 'GET',
-            url: ApiServer() + '/getPet/pets/get',
-        }
-        return this.axiosInstance(config)
-    }
-
-    getImage(data){
+    register(data){
         const config = {
             method: 'POST',
-            url: ApiServer() + '/getPet/pets/images/getByID',
+            url: ApiServer() + '/getPet/clients/register',
             data: data
         }
         return this.axiosInstance(config)
     }
 
-    getBreeds(){
+    login(data){
         const config = {
-            method: 'GET',
-            url: ApiServer() + '/getPet/pets/getBreeds',
+            method: 'POST',
+            url: ApiServer() + '/getPet/clients/login',
+            data: data
         }
         return this.axiosInstance(config)
     }
 
-    getSizes(){
-        const config = {
-            method: 'GET',
-            url: ApiServer() + '/getPet/sizes/get',
-        }
-        return this.axiosInstance(config)
-    }
+    
 }

@@ -1,0 +1,9 @@
+### GET pets
+GET http://localhost:5000/getPet/token/get
+X-Header-Token: secret_key
+Content-Type: application/json 
+
+{
+    "user": "DashHunt",
+    "client": 1
+}

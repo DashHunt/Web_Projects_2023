@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import lottieJson from "../../../assets/lotties/animals.json";
 import Lottie from "react-lottie-player";
@@ -6,6 +7,8 @@ import Button from "react-bootstrap/esm/Button";
 // import {routes} from '../../'
 
 const Intro = () => {
+  const navigate = useNavigate()
+
   return (
     <div className="container fluid">
         <div className="row justify-content-center ">
@@ -29,7 +32,7 @@ const Intro = () => {
                 You can make a huge diffence in their lives!
               </p>
               <div>
-                <Button variant="outline-light">Adopt your new friend!</Button>
+                <Button variant="outline-light" onClick={() => navigate('/friends')}>Adopt your new friend!</Button>
               </div>
             </div>
           </div>

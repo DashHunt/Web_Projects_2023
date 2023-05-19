@@ -1,0 +1,15 @@
+### POST USER
+POST http://localhost:5000/getPet/users/insert
+X-Header-Token: secret_key
+Content-Type: application/json 
+
+{
+    "user_code": "DashHunt",
+    "name": "Arthur",
+    "permissions": "Admin"
+}
+
+### GET pets
+GET http://localhost:5000/getPet/users/get
+X-Header-Token: secret_key
+Content-Type: application/json 

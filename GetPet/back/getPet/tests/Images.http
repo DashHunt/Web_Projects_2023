@@ -19,6 +19,6 @@ Content-Type: application/json
 
 
 ### GET all Images
-GET http://localhost:5000/getPet/pets/getAllImages
+GET http://localhost:5000/getPet/pets/images/getAll
 X-Header-Token: secret_key
 Content-Type: application/json 

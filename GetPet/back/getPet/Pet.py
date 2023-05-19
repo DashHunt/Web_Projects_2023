@@ -22,6 +22,14 @@ class GetPet():
         result = connection.query(Pet).filter_by(deletion_date=None).all()
 
         return json.dumps(result, cls=AlchemyEncoder)
+    
+    def getPetBreeds(self):
+        connection = self.database.ConnectSession()
+        result = connection.query(Pet.breed).filter_by(deletion_date=None).distinct().all()
+
+        breeds = [row[0] for row in result]
+
+        return json.dumps(breeds, cls=AlchemyEncoder)
 
     def insert(self, data):
         age = data['age']

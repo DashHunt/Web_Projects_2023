@@ -10,6 +10,7 @@ function PetCard(props) {
 
   useEffect(() => {
     const pets = new PetsAPI();
+
     if (props.id !== undefined) {
       pets
         .getImage({
@@ -18,7 +19,7 @@ function PetCard(props) {
         .then((result) => setB64Image(result.data.message))
         .catch((error) => console.log(error));
     }
-  }, []);
+  }, [props.id]);
 
   return (
     <Card

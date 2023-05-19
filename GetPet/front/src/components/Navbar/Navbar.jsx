@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
@@ -11,12 +11,11 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 
 import { MdPets } from "react-icons/md";
 
-import './Navbar.css'
+import "./Navbar.css";
 
 function NavbarComponent(props) {
   const [scroll, setScroll] = useState(false);
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -31,7 +30,9 @@ function NavbarComponent(props) {
           key={expand}
           expand={expand}
           style={{ backgroundColor: "#E2955C" }}
-          className={scroll ? "shadow-sm rounded-bottom fixed-top" : "fixed-top"}
+          className={
+            scroll ? "shadow-sm rounded-bottom fixed-top" : "fixed-top"
+          }
         >
           <Container fluid>
             <Navbar.Brand>
@@ -41,11 +42,21 @@ function NavbarComponent(props) {
                   width: "40px",
                   marginLeft: 20,
                   color: "white",
-                  cursor: 'pointer'
+                  cursor: "pointer",
                 }}
-                onClick={() => {navigate('/home')}}
+                onClick={() => {
+                  navigate("/home");
+                }}
               ></MdPets>{" "}
-              <span className="text-white mx-2" style={{cursor: 'pointer'}} onClick={() => {navigate('/home')}}>Pet Center</span>
+              <span
+                className="text-white mx-2"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  navigate("/home");
+                }}
+              >
+                Pet Center
+              </span>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
             <Navbar.Offcanvas
@@ -61,15 +72,14 @@ function NavbarComponent(props) {
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-start flex-grow-1">
-                  <Nav.Link href="#action1">
-                    <span className="text-white fw-light">
-                      Know your friend
-                    </span>
-                  </Nav.Link>
                   <Nav.Link href="#action2">
                     <span className="text-white fw-light">How it works</span>
                   </Nav.Link>
-                  <Nav.Link onClick={() => {navigate('/friends')}}>
+                  <Nav.Link
+                    onClick={() => {
+                      navigate("/friends");
+                    }}
+                  >
                     <span className="text-white fw-light">Friends</span>
                   </Nav.Link>
                   <Nav.Link href="#action2">
@@ -78,19 +88,27 @@ function NavbarComponent(props) {
                 </Nav>
                 <Nav className="justify-content-end">
                   <hr />
-                  <Button
-                    variant="light border shadow-sm"
-                    style={{ maxWidth: 250 }}
-                    className='contracted'
-                  >
-                    Sign In
-                  </Button>
-                  <Button
-                    variant="light border shadow-sm mx-2"
-                    style={{ maxWidth: 250 }}
-                  >
-                    Login
-                  </Button>
+                  {sessionStorage.getItem("accessToken") === null ? (
+                    <>
+                      <Button
+                        variant="dark border shadow-sm"
+                        style={{ maxWidth: 250 }}
+                        className="contracted"
+                        onClick={() => navigate("/register")}
+                      >
+                        Sign In
+                      </Button>
+                      <Button
+                        variant="dark border shadow-sm mx-2"
+                        style={{ maxWidth: 250 }}
+                        onClick={() => navigate("/login")}
+                      >
+                        Login
+                      </Button>
+                    </>
+                  ) : (
+                    <div>Perfil</div>
+                  )}
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>
