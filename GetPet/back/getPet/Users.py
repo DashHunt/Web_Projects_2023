@@ -23,6 +23,19 @@ class Users():
 
         connection.expire_all()
         return json.dumps(result, cls=AlchemyEncoder)
+    
+    def getByID(self, data):
+        user = data['user']
+
+        connection = self.database.ConnectSession()
+        result = connection.query(UserEntity).filter_by(
+            deletion_date=None).where(UserEntity.user_code == user).all()
+        
+        if len(result) < 1:
+            return make_response(jsonify({'message': 'User not found'}), 404)
+
+        connection.expire_all()
+        return json.dumps(result, cls=AlchemyEncoder)
 
     def getPermissions(self, data):
         user = data['user']
@@ -32,7 +45,7 @@ class Users():
             deletion_date=None).where(UserEntity.user_code == user).first()
 
         connection.expire_all()
-        return json.dumps(result, cls=AlchemyEncoder)
+        return json.dumps(result[0], cls=AlchemyEncoder)
 
     def insert(self, data):
         userCode = data['user_code']

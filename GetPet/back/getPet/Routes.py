@@ -133,6 +133,20 @@ def getUser():
     else:
         return errorMessage
     
+@api.route("/users/getUser", methods=['GET', 'POST'])
+def getByID():
+    if Auth(request.headers, baseRoute):
+        return Users().getByID(request.get_json())
+    else:
+        return errorMessage
+    
+@api.route("/users/getPermissions", methods=['GET','POST'])
+def getPermissions():
+    if Auth(request.headers, baseRoute):
+        return Users().getPermissions(request.get_json())
+    else:
+        return errorMessage
+    
 #INSERT user
 @api.route("/users/insert", methods=['GET', 'POST'])
 def insertUser():
@@ -141,9 +155,6 @@ def insertUser():
     else:
         return errorMessage
     
-
-
-
 
 #GET user
 @api.route("/clients/login", methods=['GET', 'POST'])

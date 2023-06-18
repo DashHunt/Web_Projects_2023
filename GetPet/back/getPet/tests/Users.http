@@ -13,3 +13,12 @@ Content-Type: application/json
 GET http://localhost:5000/getPet/users/get
 X-Header-Token: secret_key
 Content-Type: application/json 
+
+### GET pets
+GET http://localhost:5000/getPet/users/getPermissions
+X-Header-Token: secret_key
+Content-Type: application/json 
+
+{
+    "user": "DashHunt"
+}

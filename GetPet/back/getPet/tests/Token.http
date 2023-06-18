@@ -4,6 +4,5 @@ X-Header-Token: secret_key
 Content-Type: application/json 
 
 {
-    "user": "DashHunt",
-    "client": 1
+    "user": "DashHunt"
 }
