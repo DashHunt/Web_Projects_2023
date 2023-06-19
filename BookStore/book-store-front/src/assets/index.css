@@ -1,0 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+
+body {
+    font-family: 'Rubik', cursive !important; 
+    margin: 0;
+    scroll-behavior: 'smooth';
+  }

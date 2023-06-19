@@ -1,0 +1,13 @@
+### GET pets
+GET http://localhost:5000/books/
+Content-Type: application/json 
+
+### GET pets
+POST http://localhost:5000/books/insert
+Content-Type: application/json 
+
+{
+    "autor": "Autor 2",
+    "titulo": "Titulo 2",
+    "descricao": "Descricao do Titulo 2"
+}
