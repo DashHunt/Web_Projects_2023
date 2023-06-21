@@ -39,17 +39,27 @@ const Friends = () => {
 
   function FilterComponent() {
     let dataFiltered;
+    let filtered = false;
 
-    if (
-      filters.breed != "Select a option" &&
-      filters.size != "Select a option"
-    ) {
+    if (filters.breed != "Select a option") {
       dataFiltered = serverPets.filter((pet) => {
-        return (pet.breed == filters.breed) & (pet.size_id == filters.size);
+        return pet.breed == filters.breed;
       });
-    } else {
-      dataFiltered = serverPets;
+      filtered = true;
     }
+
+    if (filters.size != "Select a option") {
+      if (filtered) {
+        dataFiltered = dataFiltered.filter((pet) => {
+          return pet.size_id == filters.size;
+        });
+      }
+    }
+    
+    if (dataFiltered === undefined){
+      dataFiltered = serverPets
+    }
+
     setDisplayablePets(dataFiltered);
   }
 
@@ -61,7 +71,6 @@ const Friends = () => {
     pets
       .get()
       .then((result) => {
-        console.log(result.data);
         setDisplayablePets(result.data);
         setServerPets(result.data);
         if (window.innerWidth < 720) {
@@ -71,18 +80,18 @@ const Friends = () => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
 
     pets
       .getBreeds()
       .then((result) => setPetBreeds(result.data))
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
 
     pets
       .getSizes()
       .then((result) => setPetSizes(result.data))
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   }, []);
 
   const arrayChunk = (arr, n) => {
@@ -169,7 +178,9 @@ const Friends = () => {
                               }))
                             }
                           >
-                            <option value="Select a option">Select a option</option>
+                            <option value="Select a option">
+                              Select a option
+                            </option>
                             {petBreeds.map((breed) => {
                               return <option value={breed}>{breed}</option>;
                             })}
@@ -194,7 +205,9 @@ const Friends = () => {
                               }))
                             }
                           >
-                            <option value="Select a option">Select a option</option>
+                            <option value="Select a option">
+                              Select a option
+                            </option>
                             {petSizes.map((sizes) => {
                               return (
                                 <option value={sizes.size_id}>

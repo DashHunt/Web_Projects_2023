@@ -21,7 +21,7 @@ class Database(object):
         self.credentials = f'{driver}{user}:{password}@{host}/{database}'
 
     def ConnectSession(self):
-       engine = create_engine(self.credentials, echo=True)
+       engine = create_engine(self.credentials, echo=True, pool_size=10, max_overflow=20)
        return Session(engine)
        
 

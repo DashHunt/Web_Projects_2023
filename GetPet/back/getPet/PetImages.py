@@ -21,7 +21,7 @@ class Images():
         connection = self.database.ConnectSession()
         result = connection.query(PetImages).filter_by(
             deletion_date=None).all()
-
+        connection.expire_all()
         return json.dumps(result, cls=AlchemyEncoder)
 
     def getImageByID(self, data):

@@ -47,6 +47,7 @@ const LoginForm = () => {
                 setErrorMessage(false);
                 sessionStorage.setItem("accessToken", result.data.access_token);
                 sessionStorage.setItem("refreshToken", result.data.refresh_token);
+                sessionStorage.setItem("user", values.client_code);
                 navigate("/home");
                 setSubmitting(false);
               })

@@ -10,6 +10,8 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 
 import { MdPets } from "react-icons/md";
+import { CgProfile } from "react-icons/cg";
+import { FiLogOut } from "react-icons/fi";
 
 import "./Navbar.css";
 
@@ -107,7 +109,27 @@ function NavbarComponent(props) {
                       </Button>
                     </>
                   ) : (
-                    <div>Perfil</div>
+                    <>
+                      <Button
+                        className="contracted border"
+                        variant="dark"
+                        onClick={() => navigate("/profile")}
+                      >
+                        <CgProfile></CgProfile> Perfil 
+                      </Button>
+                      <Button
+                        className="mx-2 border"
+                        variant="dark"
+                        onClick={() => {
+                          sessionStorage.removeItem("accessToken");
+                          sessionStorage.removeItem("refreshToken");
+                          sessionStorage.removeItem("user");
+                          navigate('/home')
+                        }}
+                      >
+                        <FiLogOut></FiLogOut> Log Out
+                      </Button>
+                    </>
                   )}
                 </Nav>
               </Offcanvas.Body>
