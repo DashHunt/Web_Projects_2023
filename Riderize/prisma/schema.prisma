@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator typegraphql {
+  provider = "typegraphql-prisma"
+  output   = "../prisma/generated/type-graphql"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  user_id   Int    @id @default(autoincrement())
+  user_name String
+  password  String
+}
+
+model Ride {
+  id                      Int      @id @default(autoincrement())
+  name                    String
+  start_date              DateTime
+  start_date_registration DateTime
+  end_date_registration   DateTime
+  additional_information  String?
+  start_place             String
+  participants_limit      Int
+}
+
+model SubscribedRide {
+  id                Int      @id @default(autoincrement())
+  ride_id           Int
+  user_id           Int
+  subscription_date DateTime
+}

@@ -1,0 +1,14 @@
+export { AggregateRideArgs } from "./AggregateRideArgs";
+export { CreateManyRideArgs } from "./CreateManyRideArgs";
+export { CreateOneRideArgs } from "./CreateOneRideArgs";
+export { DeleteManyRideArgs } from "./DeleteManyRideArgs";
+export { DeleteOneRideArgs } from "./DeleteOneRideArgs";
+export { FindFirstRideArgs } from "./FindFirstRideArgs";
+export { FindFirstRideOrThrowArgs } from "./FindFirstRideOrThrowArgs";
+export { FindManyRideArgs } from "./FindManyRideArgs";
+export { FindUniqueRideArgs } from "./FindUniqueRideArgs";
+export { FindUniqueRideOrThrowArgs } from "./FindUniqueRideOrThrowArgs";
+export { GroupByRideArgs } from "./GroupByRideArgs";
+export { UpdateManyRideArgs } from "./UpdateManyRideArgs";
+export { UpdateOneRideArgs } from "./UpdateOneRideArgs";
+export { UpsertOneRideArgs } from "./UpsertOneRideArgs";
